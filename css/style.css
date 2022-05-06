@@ -202,7 +202,7 @@ body {
   font-family: Poppins; }
 
 .container {
-  width: 1700px;
+  width: 4000px;
   background: #fff;
   margin: 0 auto;
   box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
@@ -244,7 +244,7 @@ body {
 .position-center {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40%;
   transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
