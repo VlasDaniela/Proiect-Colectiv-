@@ -8,7 +8,7 @@ router.get('/',function(res,res){
 })
 router.get('/register',function(res,res){
     // console.log("Hello I'm on the start page");
-     res.render('views/register.ejs');
+     res.render('register');
  })
 
 module.exports = router;
