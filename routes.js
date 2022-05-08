@@ -1,3 +1,4 @@
+const con = require("./db-connection");
 var express = require("express");
 
 var router = express.Router();
@@ -35,5 +36,17 @@ router.get('/register',function(res,res){
      res.render('view_echipa');
  })
 
+ router.post('/register', (req, res) => {
+    const {
+        email, re_pass, name
+    } = req.body;
+    con.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
+    (err) => {
+        if (err) {
+            throw err;
+        }
+        return res.json("User created");
+    }
+ });
 
 module.exports = router;

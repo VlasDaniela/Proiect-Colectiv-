@@ -1,8 +1,17 @@
 var express = require("express");
 var path = require("path");
+var con = require("./db-connection");
+var bodyParser = require("body-parser");
 
 var routes = require("./routes");
 var app = express();
+
+con.connect((err) => {
+    if (err) throw err;
+    console.log("Connected to the database");
+});
+app.use(bodyParser.urlencoded({ extended: false })) 
+
 
 app.set("port", process.env.PORT || 3000);
 
