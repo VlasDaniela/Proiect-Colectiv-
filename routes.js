@@ -57,6 +57,10 @@ router.get('/register',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('task_form');
  })
+ router.get('/task',function(res,res){
+    // console.log("Hello I'm on the start page");
+     res.render('task');
+ })
  router.get('/task_frame',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('task_frame');
@@ -66,6 +70,10 @@ router.get('/register',function(res,res){
      res.render('view_echipa');
  })
 
+ router.get('/view_user',function(res,res){
+    // console.log("Hello I'm on the start page");
+     res.render('view_user');
+ })
  router.post('/register', (req, res) => {
     const {
         email, pass, name
