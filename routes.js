@@ -18,23 +18,27 @@ router.get('/register',function(res,res){
      res.render('signin');
  })
 
- router.post('/signin',function(req,res){
+ router.post('/signin',function(req,res) {
     const {
         email, pass
     } = req.body;
-	console.log(results)
-     
-		con.query('SELECT * FROM users WHERE email = ?', [email, pass], function(error, results, fields) {
-			if (results.length > 0) {
-				req.session.loggedin = true;
-				req.session.email = email;
-				res.redirect('/home');
-			} else {
-				res.send('Incorrect Email and/or Password!');
-			}			
-			res.end();
-		});
-	
+
+	console.log(req.body)
+
+    if(email == 0){
+        console.log("--------> User does not exist")
+        res.sendStatus(404)
+    } else {
+        con.query('SELECT * FROM users WHERE email = ?', [email, pass], function(error, results, fields) {
+        if (req.body.pass == pass) {
+            req.session.logedin = true;
+            req.session.email = email;
+            res.redirect('/home');
+        } else {
+            res.send('Incorrect Email and/or Password!');
+            }		
+        res.end();});	
+        }
 });
 
  router.get('/home',function(res,res){
@@ -43,9 +47,9 @@ router.get('/register',function(res,res){
  })
  router.post('/register', (req, res) => {
     const {
-        email, re_pass, name
+        email, pass, name
     } = req.body;
-    con.query(INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil"), [name, name, re_pass, re_pass, email]),
+    con.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
     (err) => {
         if (err) {
             throw err;
