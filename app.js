@@ -6,10 +6,10 @@ var bodyParser = require("body-parser");
 var routes = require("./routes");
 var app = express();
 
-con.connect((err) => {
-    if (err) throw err;
-    console.log("Connected to the database");
-});
+// con.connect((error) => {
+//     if (err) throw err;
+//     console.log("Connected to the database");
+// });
 app.use(bodyParser.urlencoded({ extended: false })) 
 
 
