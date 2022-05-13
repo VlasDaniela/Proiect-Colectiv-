@@ -70,13 +70,14 @@ router.get('/register',function(res,res){
     const {
         email, pass, name
     } = req.body;
-    connection.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
-    (error) => {
+    console.log(req.body);
+    connection.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name,name, pass,pass, email],function(error, results, fields){
         if (error) {
             throw error;
-        }
-        return res.json("User created");
-    }
+        }else{
+        res.render('signin');
+        console.log("User created");}
+    });
  });
 
  
