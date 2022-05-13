@@ -1,7 +1,32 @@
-const con = require("./db-connection");
-var express = require("express");
+const connection = require("./db-connection");
+const express = require("express");
+const bodyParser = require("body-parser");
+const encoder = bodyParser.urlencoded();
 
 var router = express.Router();
+
+router.post('/signin',encoder,function(req,res) {
+    var email = req.body.email;
+    var pass = req.body.pass;
+
+	console.log(req.body)
+
+    if(email == 0){
+        console.log("--------> User does not exist")
+        res.sendStatus(404)
+    } else {
+        console.log("intra!")
+        connection.query('SELECT * FROM users WHERE email = ? AND parola =?', [email, pass], function(error, results, fields) {
+        if (results.length > 0) {
+            console.log("aicinu ")
+            res.redirect('/home');
+        } else {
+            console.log("aici")
+            res.send('Incorrect Email and/or Password!');
+            }		
+        res.end();});	
+        }
+});
 
 router.get('/',function(res,res){
 	 // console.log("Hello I'm on the start page");
@@ -18,28 +43,7 @@ router.get('/register',function(res,res){
      res.render('signin');
  })
 
- router.post('/signin',function(req,res) {
-    const {
-        email, pass
-    } = req.body;
-
-	console.log(req.body)
-
-    if(email == 0){
-        console.log("--------> User does not exist")
-        res.sendStatus(404)
-    } else {
-        con.query('SELECT * FROM users WHERE email = ?', [email, pass], function(error, results, fields) {
-        if (req.body.pass == pass) {
-            req.session.logedin = true;
-            req.session.email = email;
-            res.redirect('/home');
-        } else {
-            res.send('Incorrect Email and/or Password!');
-            }		
-        res.end();});	
-        }
-});
+ 
 
  router.get('/home',function(res,res){
     // console.log("Hello I'm on the start page");
@@ -49,10 +53,10 @@ router.get('/register',function(res,res){
     const {
         email, pass, name
     } = req.body;
-    con.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
-    (err) => {
-        if (err) {
-            throw err;
+    connection.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
+    (error) => {
+        if (error) {
+            throw error;
         }
         return res.json("User created");
     }
