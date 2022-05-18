@@ -44,7 +44,6 @@ router.get('/register',function(res,res){
      res.render('signin');
  })
 
- 
 
  router.get('/home',function(res,res){
     // console.log("Hello I'm on the start page");
@@ -102,7 +101,27 @@ router.get('/register',function(res,res){
     }
     });
  });
+router.post('/task_form',encoder,function(res,req) {
 
+    var task_name = req.body.task_name;
+    var start_date= req.body.start_date;
+    var end_date= req.body.end_date;
+    var descriere= req.body.descriere;
+    var status= req.body.status;
+
+    console.log(req.body);
+
+    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Status , Atribuit) VALUES (?, ?, ?, ?, ?, ?, ?)`, [task_name, descriere, start_date, end_date, status], function ( error , results, fields) {
+        if (error) {
+            console.log("NUPREA");
+            throw error;
+        }
+        console.log("OK");
+        res.render('task_frame');
+        return res.json("Task created");
+    });
+
+});
  
 
 module.exports = router;

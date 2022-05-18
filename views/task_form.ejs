@@ -13,10 +13,10 @@
                 <div class="task-content">
                     <div>
                     <h2 class="form-title">Create task</h2></div>
-                        <form method="POST" class="task-form" id="task-form">
+                        <form method="POST" action="/task_form" class="task-form" id="task-form">
                             <div class="form-group">
-                                <label for="name"></label>
-                                <input type="text" name="name" id="task_name" placeholder="Task Name"/>
+                                <label for="task_name"></label>
+                                <input type="text" name="task_name" id="task_name" placeholder="Task Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="start_date"></label>
@@ -27,12 +27,12 @@
                                 <input type="date" name="end_date" id="end_date" placeholder="End date"/>
                             </div>
                             <div class="form-group">
-                                <label for="nr_echipa"></label>
-                                <input type="number" name="nr_echipa" id="nr_echipa" placeholder="Numar maxim oameni echipa"/>
+                                <label for="stare"></label>
+                                <input type="text" name="stare" id="stare" placeholder="Stare"/>
                             </div>
                             <div class="form-group">
-                                <label for="descr"></label>
-                                <input type="text" name="descr" id="descr" placeholder="Descriere"/>
+                                <label for="descriere"></label>
+                                <input type="text" name="descriere" id="descriere" placeholder="Descriere"/>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
@@ -40,7 +40,7 @@
                             </div>
                             <div class="form-group form-button">
                                 <a href="/task_form">
-                                <input type="button" name="done" id="done" class="form-submit" value="Done"/></a>
+                                <input type="submit" name="done" id="done" class="form-submit" value="Done"/></a>
                                 <a href="/home_manager">
                                 <input  type="button" name="back" id="back" class="button2" value="Back"/></a>
                             </div>
