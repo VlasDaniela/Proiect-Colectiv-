@@ -6,6 +6,7 @@ const encoder = bodyParser.urlencoded();
 var router = express.Router();
 
 router.post('/signin',encoder,function(req,res) {
+    
     var email = req.body.email;
     var pass = req.body.pass;
 
