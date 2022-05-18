@@ -101,17 +101,22 @@ router.get('/register',function(res,res){
     }
     });
  });
-router.post('/task_form',encoder,function(res,req) {
 
-    var task_name = req.body.task_name;
-    var start_date= req.body.start_date;
-    var end_date= req.body.end_date;
-    var descriere= req.body.descriere;
-    var status= req.body.status;
+router.post('/task_form' ,(res,req) => {
+
+    // var task_name = req.body.task_name;
+    // var start_date= req.body.start_date;
+    // var end_date= req.body.end_date;
+    // var descriere= req.body.descriere;
+    // var status= req.body.status;
+
+    const {
+        task_name, start_date, end_date, descriere, status
+        } = req.body;
 
     console.log(req.body);
 
-    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Status , Atribuit) VALUES (?, ?, ?, ?, ?, ?, ?)`, [task_name, descriere, start_date, end_date, status], function ( error , results, fields) {
+    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, ?, ?, "neatribuita")`, [task_name, descriere, start_date, end_date, status], function ( error , results, fields) {
         if (error) {
             console.log("NUPREA");
             throw error;
