@@ -1,6 +1,6 @@
-var mysql = require("mysql")
+var mysql = require('mysql')
 
-const con =
+const connection =
     mysql.createConnection({
         host: "localhost",
         user: "root",
@@ -8,4 +8,4 @@ const con =
         database: "taskapp",
     })
 
-module.exports = con;
+module.exports = connection;

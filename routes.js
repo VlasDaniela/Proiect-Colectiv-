@@ -1,5 +1,6 @@
-const con = require("./db-connection");
+const connection = require("./db-connection");
 var express = require("express");
+//const { connection } = require("mongoose");
 
 var router = express.Router();
 
@@ -20,16 +21,31 @@ router.get('/register',function(res,res){
      res.render('home');
  })
  router.post('/register', (req, res) => {
-    const {
-        email, re_pass, name
-    } = req.body;
-    con.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email]),
-    (err) => {
-        if (err) {
-            throw err;
-        }
-        return res.json("User created");
+    
+    var email = req.body.email;
+    var re_pass = req.body.re_pass;
+    var name = req.body.name;
+
+    console.log(req.body);
+
+    connection.query(`SELECT * FROM users WHERE email =?`,[email], function (error, results, fields) {
+        if (error){
+            console.log("111")
+            connection.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email], function ( error , results, fields) {
+            if (error) {
+                console.log("2222");
+                throw error;
+            }
+            console.log("3333");
+            res.render('home');
+            return res.json("User created");
+        });
+        } else {
+        console.log("4444");
+        console.log("Already exists!");
+    
     }
+    });
  });
 
 module.exports = router;

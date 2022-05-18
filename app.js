@@ -1,13 +1,13 @@
 var express = require("express");
 var path = require("path");
-var con = require("./db-connection");
+var connection = require("./db-connection");
 var bodyParser = require("body-parser");
 
 var routes = require("./routes");
 var app = express();
 
-con.connect((err) => {
-    if (err) throw err;
+connection.connect((error) => {
+    if (error) throw error;
     console.log("Connected to the database");
 });
 app.use(bodyParser.urlencoded({ extended: false })) 
