@@ -111,6 +111,8 @@ router.post('/task_form' ,(req,res) => {
     var start_date= req.body.start_date;
     var end_date= req.body.end_date;
     var descriere= req.body.descriere;
+    var skill = req.body.skill;
+    var nivel = req.body.nivel;
 //    var stare= req.body.stare;
 
     // const {
@@ -119,15 +121,26 @@ router.post('/task_form' ,(req,res) => {
 
     console.log(req.body);
 
-    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, "incomplet", "neatribuita")`, [task_name, descriere, start_date, end_date], function ( error , results, fields) {
-        if (error) {
-            console.log("NUPREA");
-            throw error;
-        }
-        console.log("OK");
-        return res.redirect('/home_manager');
-        // return res.json("Task created");
-    });
+    if(req.body.skill == null){
+        connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, "incomplet", "neatribuita")`, [task_name, descriere, start_date, end_date], function ( error , results, fields) {
+            if (error) {
+                console.log("NUPREA");
+                throw error;
+            }
+            console.log("OK");
+            return res.redirect('/home_manager');
+            // return res.json("Task created");
+        });
+    }else {
+                connection.query(`INSERT INTO skills (Descriere , Dificultate) VALUES (?,? )`,[skill, nivel], function(error,results,fields){
+                    if (error) {
+                        console.log("NUPREA");
+                        throw error;
+                    }
+                    console.log("OK22");
+                    return res.redirect('/task_form');
+                });
+    }
 
 });
 
@@ -152,6 +165,7 @@ router.post('/task_form' ,(req,res) => {
 //         response.end('</table>');
 //     });
 // });
- 
+
+
 
 module.exports = router;
