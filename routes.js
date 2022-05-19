@@ -1,6 +1,7 @@
 const connection = require("./db-connection");
 const express = require("express");
 const bodyParser = require("body-parser");
+const { response } = require("express");
 const encoder = bodyParser.urlencoded();
 
 
@@ -130,6 +131,27 @@ router.post('/task_form' ,(req,res) => {
 
 });
 
+// router.get('/home_manager',function(req,res){
 
+//     connection.query(`SELECT * FROM tasks `, function (error, results, fields) {
+//         console.log(results);
+//         response.write('<table><tr>');
+
+//         for(var column in results[0]){
+//             response.write('<td><label>'+ column + '</label></td>');
+//             res.write('</tr>');
+//         }
+
+//         for(var row in results){
+//             response.write('/tr');
+//             for(var column in results[row]){
+//                 response.write('<td><label>'+ results[row][column] + '</lable></td>');
+//             }
+//             response.write('</tr>');
+//         }
+//         response.end('</table>');
+//     });
+// });
+ 
 
 module.exports = router;
