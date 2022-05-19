@@ -3,6 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const encoder = bodyParser.urlencoded();
 
+
+
 var router = express.Router();
 
 router.post('/signin',encoder,function(req,res) {
@@ -20,13 +22,13 @@ router.post('/signin',encoder,function(req,res) {
         connection.query('SELECT * FROM users WHERE email = ? AND parola =?', [email, pass], function(error, results, fields) {
         if (results.length > 0) {
             console.log("aicinu ")
-            res.redirect('/home');
+            return res.redirect('/home');
         } else {
             console.log("aici")
-            res.send('Incorrect Email and/or Password!');
+            return res.send('Incorrect Email and/or Password!');
             }		
-        res.end();});	
-        }
+        });	
+    }
 });
 
 router.get('/',function(res,res){
@@ -91,8 +93,8 @@ router.get('/register',function(res,res){
                 throw error;
             }
             console.log("3333");
-            res.render('home');
-            return res.json("User created");
+            return res.render('home');
+            // return res.json("User created");
         });
         } else {
         console.log("4444");
@@ -102,31 +104,32 @@ router.get('/register',function(res,res){
     });
  });
 
-router.post('/task_form' ,(res,req) => {
+router.post('/task_form' ,(req,res) => {
 
-    // var task_name = req.body.task_name;
-    // var start_date= req.body.start_date;
-    // var end_date= req.body.end_date;
-    // var descriere= req.body.descriere;
-    // var status= req.body.status;
+    var task_name = req.body.task_name;
+    var start_date= req.body.start_date;
+    var end_date= req.body.end_date;
+    var descriere= req.body.descriere;
+//    var stare= req.body.stare;
 
-    const {
-        task_name, start_date, end_date, descriere, status
-        } = req.body;
+    // const {
+    //     task_name, start_date, end_date, descriere, status
+    //     } = req.body;
 
     console.log(req.body);
 
-    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, ?, ?, "neatribuita")`, [task_name, descriere, start_date, end_date, status], function ( error , results, fields) {
+    connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, "incomplet", "neatribuita")`, [task_name, descriere, start_date, end_date], function ( error , results, fields) {
         if (error) {
             console.log("NUPREA");
             throw error;
         }
         console.log("OK");
-        res.render('task_frame');
-        return res.json("Task created");
+        return res.redirect('/home_manager');
+        // return res.json("Task created");
     });
 
 });
- 
+
+
 
 module.exports = router;

@@ -6,11 +6,13 @@ var bodyParser = require("body-parser");
 var routes = require("./routes");
 var app = express();
 
+
+app.use(bodyParser.json()) 
 app.use(bodyParser.urlencoded({ extended: false })) 
 
 
 app.set("port", process.env.PORT || 3000);
-app.set("port", process.env.PORT || 8080);
+
 
 app.use(routes);
 app.use("/css",express.static(__dirname + "/css"));
