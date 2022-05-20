@@ -12,6 +12,7 @@ router.post('/signin',encoder,function(req,res) {
     
     var email = req.body.email;
     var pass = req.body.pass;
+    var IdManager = req.body.IdManager
 
 	console.log(req.body)
 
@@ -21,14 +22,24 @@ router.post('/signin',encoder,function(req,res) {
     } else {
         console.log("intra!")
         connection.query('SELECT * FROM users WHERE email = ? AND parola =?', [email, pass], function(error, results, fields) {
+        console.log(results);
         if (results.length > 0) {
             console.log("aicinu ")
-            return res.redirect('/home');
-        } else {
-            console.log("aici")
-            return res.send('Incorrect Email and/or Password!');
-            }		
-        });	
+            //connection.query('SELECT IdManager FROM users WHERE email = ? AND parola = ?',[email,pass],function(error,result,fields){
+                //console.log(fields[0].IdManager);
+                console.log(results[0].IdManager);
+                if( results[0].IdManager != 0){
+                    
+                    console.log("Diferit de 0");
+                    return res.redirect('/home_manager');
+                }else{
+                    return res.redirect('/view_user');}
+            //});
+         } else {
+                console.log("aici")
+                return res.send('Incorrect Email and/or Password!');
+            }
+        });		
     }
 });
 
