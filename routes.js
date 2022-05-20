@@ -1,8 +1,10 @@
-const connection = require("./db-connection");
+const connection = require("./db-connection.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { response } = require("express");
+const { route } = require("express/lib/application");
 const encoder = bodyParser.urlencoded();
+
 
 
 
@@ -122,8 +124,8 @@ router.post('/task_form' ,(req,res) => {
     var start_date= req.body.start_date;
     var end_date= req.body.end_date;
     var descriere= req.body.descriere;
-    var skill = req.body.skill;
-    var nivel = req.body.nivel;
+    // var skill = req.body.skill;
+    // var nivel = req.body.nivel;
 //    var stare= req.body.stare;
 
     // const {
@@ -132,48 +134,41 @@ router.post('/task_form' ,(req,res) => {
 
     console.log(req.body);
 
-    if(req.body.skill == null){
         connection.query(`INSERT INTO tasks (Nume, Descriere, Data_start, Data_final, Stare , Atribuit) VALUES (?, ?, ?, ?, "incomplet", "neatribuita")`, [task_name, descriere, start_date, end_date], function ( error , results, fields) {
             if (error) {
                 console.log("NUPREA");
                 throw error;
             }
             console.log("OK");
-            return res.redirect('/home_manager');
+            return res.redirect('/task_form');
             // return res.json("Task created");
         });
-    }else {
-                connection.query(`INSERT INTO skills (Descriere , Dificultate) VALUES (?,? )`,[skill, nivel], function(error,results,fields){
-                    if (error) {
-                        console.log("NUPREA");
-                        throw error;
-                    }
-                    console.log("OK22");
-                    return res.redirect('/task_form');
-                });
-    }
+    });
+router.post('/skills',(req,res)=>{
 
+    var skill = req.body.skill;
+    var nivel = req.body.nivel;
+
+    console.log(req.body);
+
+    connection.query(`INSERT INTO skills (Descriere , Dificultate) VALUES (?,? )`,[skill, nivel], function(error,results,fields){
+        if (error) {
+            console.log("NUPREA");
+            throw error;
+        }
+        console.log("OK22");
+        return res.redirect('/task_form');
+    });
 });
 
-// router.get('/home_manager',function(req,res){
+// router.get('/home_manager',function(req,res,next){
 
-//     connection.query(`SELECT * FROM tasks `, function (error, results, fields) {
-//         console.log(results);
-//         response.write('<table><tr>');
-
-//         for(var column in results[0]){
-//             response.write('<td><label>'+ column + '</label></td>');
-//             res.write('</tr>');
-//         }
-
-//         for(var row in results){
-//             response.write('/tr');
-//             for(var column in results[row]){
-//                 response.write('<td><label>'+ results[row][column] + '</lable></td>');
-//             }
-//             response.write('</tr>');
-//         }
-//         response.end('</table>');
+//     connection.query(`SELECT * FROM tasks ORDER BY IdTask cresc`, function (error, results,fields) {
+//          if(error){
+//              throw error;
+//          }else{
+//              res.render('list',{page_title:"Tasks - Node.js", data:fields})
+//          }
 //     });
 // });
 

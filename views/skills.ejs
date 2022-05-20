@@ -1,10 +1,10 @@
 <button class="open-button" onclick="openForm()">Open Form</button>                        
 <div class="form-popup" id="myForm">                            
-    <form action="/skills" class="form-container">                        
+    <form class="form-container">                        
         <h1>Skills</h1>                                
         <div>            
             <label for="skill"></label>
-            <input type="text" placeholder="Enter Skill" name="skill" id="skill" required>                            
+            <input type="text" placeholder="Enter Skill" name="skill" id="skill" >                            
             <form action="/action_page.php">                            
                 <input list="browser" name="nivel" id="nivel">                            
                 <datalist id="browser">                    
@@ -14,7 +14,7 @@
                             </datalist>                
                         </form>            
                     </div>        
-                    <button type="submit" class="btn">Save</button>        
+                    <button type="submit" action="/skills" class="btn">Save</button>        
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>                
                 </form>                
             </div>
