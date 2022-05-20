@@ -99,7 +99,7 @@ router.get('/register',function(res,res){
     console.log(req.body);
 
     connection.query(`SELECT * FROM users WHERE email =?`,[email], function (error, results, fields) {
-        if (error){
+        if (!error){
             console.log("111")
             connection.query(`INSERT INTO users (nume, idManager, numeUtilizator, parola, parolaHash, email, profil) VALUES (?, 0, ?, ?, ?, ?, "profil")`, [name, name, re_pass, re_pass, email], function ( error , results, fields) {
             if (error) {
