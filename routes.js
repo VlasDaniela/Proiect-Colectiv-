@@ -1,4 +1,4 @@
-const connection = require("./db-connection.js");
+const {connection, makeDb} = require("./db-connection.js");
 const express = require("express");
 const bodyParser = require("body-parser");
 const { response } = require("express");
@@ -9,6 +9,7 @@ const encoder = bodyParser.urlencoded();
 
 
 var router = express.Router();
+const db = makeDb()
 
 router.post('/signin',encoder,function(req,res) {
     
@@ -64,10 +65,6 @@ router.get('/register',function(res,res){
  router.get('/home',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('home');
- })
- router.get('/home_manager',function(res,res){
-    // console.log("Hello I'm on the start page");
-     res.render('home_manager');
  })
  router.get('/task_form',function(res,res){
     // console.log("Hello I'm on the start page");
@@ -159,6 +156,15 @@ router.post('/skills',(req,res)=>{
         console.log("OK22");
         return res.redirect('/task_form');
     });
+});
+
+router.get('/home_manager',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+        return res.render('home_manager',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
 });
 
 // router.get('/home_manager',function(req,res,next){

@@ -19,6 +19,14 @@
                 <th scope="col">Descriere</th>
                 <th width="200px"></th>
             </tr>
+            <% if(tasks.length === 0) { %>
+                <h4 class= 'font-weight-light text-muted font-italic'> The list it's empty right now.</h4>
+                <% } %>
+            <% for(var i = 0 ; i < tasks.length; i++) { %>
+                <tr>
+                    <td><%= tasks[i].Nume %></td>
+                </tr>>
+                <% } %>
         </thead>
     </table>
 </body>
