@@ -70,10 +70,14 @@ router.get('/register',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('task_form');
  })
- router.get('/task',function(res,res){
-    // console.log("Hello I'm on the start page");
-     res.render('task');
- })
+ router.get('/task',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+        return res.render('task',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
+});
  router.get('/task_frame',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('task_frame');
@@ -83,10 +87,7 @@ router.get('/register',function(res,res){
      res.render('view_echipa');
  })
 
- router.get('/view_user',function(res,res){
-    // console.log("Hello I'm on the start page");
-     res.render('view_user');
- })
+
  router.post('/register', (req, res) => {
     
     var email = req.body.email;
@@ -162,6 +163,16 @@ router.get('/home_manager',async (req,res) => {
     try{
         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
         return res.render('home_manager',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
+});
+
+router.get('/view_user',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM users ORDER BY IdUser`)
+        //console.log(rows);
+        return res.render('view_user',{ users: rows })
     }catch(e){
         console.log(e)
     }
