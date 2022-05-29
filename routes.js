@@ -84,6 +84,10 @@ router.get('/register',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('view_echipa');
  })
+ router.get('/skills',function(res,res){
+    // console.log("Hello I'm on the start page");
+     res.render('skills');
+ })
 
 
  router.post('/register', (req, res) => {
@@ -147,9 +151,10 @@ router.post('/skills',(req,res)=>{
             throw error;
         }
         console.log("OK22");
-        return res.redirect('/task_form');
+        return res.render('/skills');
     });
 });
+
 router.get('/home_manager',async (req,res) => {
     try{
         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
