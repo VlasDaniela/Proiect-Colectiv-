@@ -1,0 +1,27 @@
+<%- include('header'); -%>
+<body>
+    <table activity="/view_e">
+        <thead>
+            <tr>
+                <th scope="col">Nume User</th>
+                <th scope="col">Email</th>
+                <th scope="col">Profil</th>
+                <th scope="col">Status</th>
+            
+            </tr>
+            <% if(users.length === 0) { %>
+                <h4 class= 'font-weight-light text-muted font-italic'> The list it's empty right now.</h4>
+                <% } %>
+            <% for(var i = 0; i < users.length; i++) { %>
+                <tr>
+                    <td><%= users[i].nume %></td>
+                    <td><%= users[i].email %></td>
+                    <a href="/view_user"><td><%= users[i].profil %></td></a>
+                    <td><%= users[i].status %></td>
+                </tr>>
+            <% } %>
+        </thead>
+    </table>
+</body>
+
+<%- include ('footer'); -%>

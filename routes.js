@@ -174,6 +174,7 @@ router.get('/home_manager',async (req,res) => {
     }
 });
 
+
 router.get('/home_manager/:IdUser',async (req,res) => {
     try{
         const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
@@ -195,6 +196,7 @@ router.get('/view_user',async (req,res) => {
         console.log(e)
     }
 });
+
 router.get('/task/:IdUser',async (req,res) => {
     try{
         const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
@@ -235,5 +237,15 @@ router.get('/to_be_done',async (req,res) => {
     }
 });
 
+router.get('/view_e',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM users ORDER BY IdUser`)
+        //const rows2 = await db.query(`SELECT * FROM skills `)
+        console.log(rows);
+        return res.render('view_e',{ users:rows })
+    }catch(e){
+        console.log(e)
+    }
+});
 
 module.exports = router;
