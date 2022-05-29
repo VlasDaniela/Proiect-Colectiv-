@@ -68,6 +68,14 @@
                               Bay Area, San Francisco, CA
                             </div>
                           </div>
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <h6 class="mb-0">Status</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                              <%= users[3].status %>
+                            </div>
+                          </div>
                           <hr>
                           <div class="row">
                             <div class="col-sm-12">
@@ -88,7 +96,24 @@
                       <div class="card h-100">
                         <div class="card-body">
                           <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Skilluri</h6>
-                          <small>Programming in Java</small>
+                          
+                          <% if(skills.length === 0) { %>
+                            <h4 class= 'font-weight-light text-muted font-italic'> The list it's empty right now.</h4>
+                            <% } %>
+                          <% for(var i = 0 ; i < skills.length; i++) { %>
+                            <small><%= skills[i].Descriere %></small>
+                            <div class="progress mb-3" style="height: 5px">
+                              <% if(skills[i].Dificultate === 'Beginer') { %>
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: 33%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div> <% } %>
+                              <% if(skills[i].Dificultate === 'Intermediar') { %>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div> <% } %>
+                              <% if(skills[i].Dificultate === 'Expert') { %>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 99%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div> <% } %>
+                            </div>
+                          <% } %>
+                        
+
+                          <!-- 
                           <div class="progress mb-3" style="height: 5px">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
@@ -127,11 +152,11 @@
                           <small>Cyber Security</small>
                           <div class="progress mb-3" style="height: 5px">
                             <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
-                  <a href="/task">Click aici</a>
+                  <a href="/task">View tasks table</a>
     
     
                 

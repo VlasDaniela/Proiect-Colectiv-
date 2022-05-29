@@ -46,7 +46,7 @@ router.post('/signin',encoder,function(req,res) {
 
 router.get('/',function(res,res){
 	 // console.log("Hello I'm on the start page");
-     res.render('index');
+     res.render('register');
 })
 
 router.get('/register',function(res,res){
@@ -60,10 +60,18 @@ router.get('/register',function(res,res){
  })
 
 
- router.get('/home',function(res,res){
-    // console.log("Hello I'm on the start page");
-     res.render('home');
- })
+ router.get('/home',async(req,res)=> {
+    try{
+        const rows= await db.query('SELECT IdManager FROM ')
+
+        if( rows[0].IdManager != 0){
+            console.log("Diferit de 0");
+            return res.render('home_manager',{users:rows})
+        }else{
+            return res.render('view_user',{users:rows})
+        }}catch(e)
+        {console.log(e)}
+    });
  router.get('/task_form',function(res,res){
     // console.log("Hello I'm on the start page");
      res.render('task_form');
@@ -107,8 +115,8 @@ router.get('/register',function(res,res){
                 throw error;
             }
             console.log("3333");
-            return res.render('home');
-            // return res.json("User created");
+            return res.render('signin');
+            //return res.json("User created");
         });
         } else {
         console.log("4444");
@@ -170,8 +178,7 @@ router.get('/home_manager/:IdUser',async (req,res) => {
     try{
         const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
         console.log(rows);
-        const rows2 = await db.query(`SELECT * FROM users ORDER BY IdUser`)
-
+        const rows2 = await db.query(`SELECT email FROM users WHERE IdUser=${req.params.IdUser}`)
         return res.render('home_manager',{ tasks: rows, users:rows2 })
     }catch(e){
         console.log(e)
@@ -181,8 +188,9 @@ router.get('/home_manager/:IdUser',async (req,res) => {
 router.get('/view_user',async (req,res) => {
     try{
         const rows = await db.query(`SELECT * FROM users ORDER BY IdUser`)
-        //console.log(rows);
-        return res.render('view_user',{ users: rows })
+        const rows2 = await db.query(`SELECT * FROM skills `)
+        console.log(rows2);
+        return res.render('view_user',{ users: rows, skills: rows2 })
     }catch(e){
         console.log(e)
     }
@@ -192,11 +200,40 @@ router.get('/task/:IdUser',async (req,res) => {
         const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
         console.log(rows);
         const rows2 = await db.query(`SELECT * FROM users ORDER BY IdUser`)
-        return res.render('home_manager',{ tasks: rows,users:rows2 })
+        return res.render('task',{ tasks: rows,users:rows2 })
     }catch(e){
         console.log(e)
     }
 });
+
+// router.get('/done',async (req,res) => {
+//     try{
+//         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+//         return res.render('task',{ tasks: rows })
+//     }catch(e){
+//         console.log(e)
+//     }
+// });
+// router.get('/work_in_progress',async (req,res) => {
+//     try{
+//         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+//         return res.render('task',{ tasks: rows })
+//     }catch(e){
+//         console.log(e)
+//     }
+// });
+// router.get('/to_be_done',async (req,res) => {
+//     try{
+        
+//         let date2 = new Date('May 30 2022')
+
+//         const rows = await db.query(`SELECT * FROM tasks WHERE Data_final > date2`)
+        
+//         return res.render('task',{ tasks: rows })
+//     }catch(e){
+//         console.log(e)
+//     }
+// });
 
 
 module.exports = router;
