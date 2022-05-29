@@ -26,6 +26,5 @@ function makeDb() {
           }
         };
       }
-      
 
 module.exports = {connection, makeDb };

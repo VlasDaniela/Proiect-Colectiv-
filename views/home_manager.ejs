@@ -1,7 +1,7 @@
 <%- include('header'); -%>
 <body>
     <div>
-        <p id="email">manager@yahoo.com</p>
+        <p id="email"><%= users[0].email %></p>
         <div class="nav navbar-nav navbar-right">
             <div class="search-container">
             <input type="text" placeholder="Search.." name="search">
@@ -28,7 +28,10 @@
                     <td><%= tasks[i].Data_start %></td>
                     <td><%= tasks[i].Data_final %></td>
                     <td><%= tasks[i].Descriere %></td>
-
+                    <td>
+                        <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger btn-action" data-toggle="tooltip" title="" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
+                    </td>
                 </tr>>
                 <% } %>
         </thead>

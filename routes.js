@@ -6,8 +6,6 @@ const { route } = require("express/lib/application");
 const encoder = bodyParser.urlencoded();
 
 
-
-
 var router = express.Router();
 const db = makeDb()
 
@@ -122,13 +120,7 @@ router.post('/task_form' ,(req,res) => {
     var start_date= req.body.start_date;
     var end_date= req.body.end_date;
     var descriere= req.body.descriere;
-    // var skill = req.body.skill;
-    // var nivel = req.body.nivel;
-//    var stare= req.body.stare;
 
-    // const {
-    //     task_name, start_date, end_date, descriere, status
-    //     } = req.body;
 
     console.log(req.body);
 
@@ -158,11 +150,24 @@ router.post('/skills',(req,res)=>{
         return res.redirect('/task_form');
     });
 });
-
 router.get('/home_manager',async (req,res) => {
     try{
         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
-        return res.render('home_manager',{ tasks: rows })
+        const rows2 = await db.query(`SELECT * FROM users ORDER BY IdUser`)
+        //console.log(rows);
+        return res.render('home_manager',{ tasks: rows, users:rows2 })
+    }catch(e){
+        console.log(e)
+    }
+});
+
+router.get('/home_manager/:IdUser',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
+        console.log(rows);
+        const rows2 = await db.query(`SELECT * FROM users ORDER BY IdUser`)
+
+        return res.render('home_manager',{ tasks: rows, users:rows2 })
     }catch(e){
         console.log(e)
     }
@@ -177,18 +182,16 @@ router.get('/view_user',async (req,res) => {
         console.log(e)
     }
 });
-
-// router.get('/home_manager',function(req,res,next){
-
-//     connection.query(`SELECT * FROM tasks ORDER BY IdTask cresc`, function (error, results,fields) {
-//          if(error){
-//              throw error;
-//          }else{
-//              res.render('list',{page_title:"Tasks - Node.js", data:fields})
-//          }
-//     });
-// });
-
+router.get('/task/:IdUser',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT a.* FROM tasks a INNER JOIN user_task b on a.IdTask=b.IdTask WHERE IdUser=${req.params.IdUser}`)
+        console.log(rows);
+        const rows2 = await db.query(`SELECT * FROM users ORDER BY IdUser`)
+        return res.render('home_manager',{ tasks: rows,users:rows2 })
+    }catch(e){
+        console.log(e)
+    }
+});
 
 
 module.exports = router;
