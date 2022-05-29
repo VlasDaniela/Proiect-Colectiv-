@@ -206,34 +206,34 @@ router.get('/task/:IdUser',async (req,res) => {
     }
 });
 
-// router.get('/done',async (req,res) => {
-//     try{
-//         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
-//         return res.render('task',{ tasks: rows })
-//     }catch(e){
-//         console.log(e)
-//     }
-// });
-// router.get('/work_in_progress',async (req,res) => {
-//     try{
-//         const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
-//         return res.render('task',{ tasks: rows })
-//     }catch(e){
-//         console.log(e)
-//     }
-// });
-// router.get('/to_be_done',async (req,res) => {
-//     try{
+router.get('/done',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+        return res.render('task',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
+});
+router.get('/work_in_progress',async (req,res) => {
+    try{
+        const rows = await db.query(`SELECT * FROM tasks ORDER BY IdTask`)
+        return res.render('task',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
+});
+router.get('/to_be_done',async (req,res) => {
+    try{
         
-//         let date2 = new Date('May 30 2022')
+        let date2 = new Date('May 30 2022')
 
-//         const rows = await db.query(`SELECT * FROM tasks WHERE Data_final > date2`)
+        const rows = await db.query(`SELECT * FROM tasks WHERE Data_final > date2`)
         
-//         return res.render('task',{ tasks: rows })
-//     }catch(e){
-//         console.log(e)
-//     }
-// });
+        return res.render('task',{ tasks: rows })
+    }catch(e){
+        console.log(e)
+    }
+});
 
 
 module.exports = router;
