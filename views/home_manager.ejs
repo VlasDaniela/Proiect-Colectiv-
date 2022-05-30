@@ -11,7 +11,7 @@
     </div>
     <a href="/task_form"><input type="button" name="create_task" id="create_task" class="button2" value="Create task"></input></a>
     <a href="/view_e"><input type="button" name="create_task" id="view_useri" class="button2" value="View useri"></input></a>
-    <table activity="/home_manager">
+    <table activity="/home_manager" id="myTable">
         <thead>
             <tr>
                 <th scope="col">Nume task</th>
@@ -19,6 +19,16 @@
                 <th scope="col">Data final</th>
                 <th scope="col">Descriere</th>
                 <th width="200px"></th>
+            </tr>
+            <tr>
+                <td>TASK EXEMPLU</td>
+                <td>Thu May 12 2022 00:00:00 GMT+0300 (Eastern European Summer Time)</td>
+                <td>Wed May 18 2022 00:00:00 GMT+0300 (Eastern European Summer Time)</td>
+                <td>Descriere</td>
+                <td>
+                    <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a class="btn btn-danger btn-action" data-toggle="tooltip" title="" onclick="myDeleteFunction()" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
+                </td>
             </tr>
             <% if(tasks.length === 0) { %>
                 <h4 class= 'font-weight-light text-muted font-italic'> The list it's empty right now.</h4>
@@ -38,5 +48,10 @@
         </thead>
     </table>
 </body>
+<script>
+    function myDeleteFunction() {
+  document.getElementById("myTable").deleteRow(1);
+}
+</script>
 
 <%- include ('footer'); -%>

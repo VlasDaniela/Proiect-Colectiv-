@@ -20,7 +20,7 @@
               <button type="submit" action="/to_be_done" class="btn">To be done</button> 
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped">
+                  <table class="table table-striped" id="myTable2">
                     <tbody>
                       <tr>
                         <th class="text-center">
@@ -33,6 +33,25 @@
                         <th>Progress</th>
                         <th>Due Date</th>
                         <th>Action</th>
+                      </tr>
+                      <tr>
+                        <td class="p-0 text-center">
+                          <div class="custom-checkbox custom-control">
+                            <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
+                            <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                          </div>
+                        </td>
+                        <td>Task EXEMPLU</td>
+                        <td class="align-middle">
+                          <div class="progress" data-height="4" data-toggle="tooltip" title="" data-original-title="100%" style="height: 4px;">
+                            <div class="progress-bar bg-success" data-width="100" style="width: 100px;"></div>
+                          </div>
+                        </td>
+                        <td>Wed May 18 2022 00:00:00 GMT+0300 (Eastern European Summer Time)</td>
+                        <td>
+                            <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger btn-action" data-toggle="tooltip" title="" onclick="myDeleteFunction()" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-confirm-yes="alert('Deleted')" data-original-title="Delete"><i class="fas fa-trash"></i></a>
+                        </td>
                       </tr>
 
                       <% if(tasks.length === 0) { %>
@@ -146,4 +165,9 @@
         </div>
    
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+<script>
+  function myDeleteFunction() {
+  document.getElementById("myTable2").deleteRow(1);
+  }
+  </script>
 </html>
